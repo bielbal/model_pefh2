@@ -10,7 +10,7 @@ function tokenize(expr: string): string[] {
   const tokens: string[] = [];
   let i = 0;
   while (i < expr.length) {
-    const c = expr[i];
+    const c: any = expr[i];
     if (/\s/.test(c)) { i++; continue; }
     if (/[0-9.]/.test(c)) {
       let num = "";
@@ -112,7 +112,7 @@ for (const e of raw) {
 const STOP = new Set(["o","a","os","as","que","de","do","da","e","em","no","na","um","uma","é","ser","está","tá","meu","minha","seu","sua","com","por","para","pra","qual","quais"]);
 
 function match(input: string): { start: string; confidence: number } {
-  const words = input.toLowerCase().split(/\s+/).filter(w => w.length > 1 && !STOP.has(w) && !/\d/.test(w));
+  const words: any = input.toLowerCase().split(/\s+/).filter(w => w.length > 1 && !STOP.has(w) && !/\d/.test(w));
   if (!words.length) return { start: "", confidence: 0 };
 
   for (let n = words.length; n >= 1; n--) {
@@ -141,12 +141,12 @@ function generate(start: string, maxWords = MAX_WORDS): string {
 
     if (entry.fn) break; // não executa fn aqui (já tratado no tryFn)
 
-    const candidates = Object.entries(entry.next).map(([w, s]) => {
+    const candidates: any = Object.entries(entry.next).map(([w, s]) => {
       const count = seen.get(w) ?? 0;
       return [w, s * Math.pow(0.2, count)] as [string, number];
     });
 
-    const weights = candidates.map(([, s]) => Math.pow(s, 1 / TEMP));
+    const weights:  any = candidates.map(([, s]) => Math.pow(s, 1 / TEMP));
     const total = weights.reduce((a, b) => a + b, 0);
     let r = Math.random() * total;
 
@@ -184,7 +184,7 @@ function ask() {
       console.log("ai:", solve(clean));
       return ask();
     }
-    
+
     // 2. Match no grafo
     const { start, confidence } = match(clean);
     if (!start || confidence < MIN_CONFIDENCE) {
