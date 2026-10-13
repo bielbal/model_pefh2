@@ -167,7 +167,7 @@ ai: tchau!
 ## Como rodar
 
 ```bash
-bun model.ts
+bun ai
 ```
 
 ---
